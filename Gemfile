@@ -1,12 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'rake'
+gemspec
 
-group :development, :test do
-  gem 'pry'
-end
-
-group :test do
-  gem 'cucumber'
-  gem 'aruba'
-end
