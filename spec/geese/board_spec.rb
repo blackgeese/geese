@@ -12,7 +12,6 @@ describe Geese::Board do
     end
   end
 
-
   describe '#add_player' do
     let(:board) { Geese::Board.create_with_number_of_squares(63) }
 
@@ -22,4 +21,19 @@ describe Geese::Board do
     end
   end
 
+  describe '#current_player' do
+    let(:john) { player_attributes(name: "John", age: 11) }
+    let(:jane) { player_attributes(name: "Jane", age: 9) }
+
+    let(:board) { Geese::Board.create_with_number_of_squares(63) }
+
+    before do
+      board.add_player(john)
+      board.add_player(jane)
+    end
+
+    it 'chooses youngest player to start' do
+      expect(board.current_player).to eql(jane)
+    end
+  end
 end

@@ -32,7 +32,16 @@ module Geese
       @players << attributes
     end
 
+    # Returns the player attributes for the player for the current turn
+    def current_player
+      youngest_player
+    end
+
     private
+
+    def youngest_player
+      players.sort { |a,b| a[:age] <=> b[:age] }.first
+    end
 
     def initialize(number_of_squares)
       @number_of_squares = number_of_squares
