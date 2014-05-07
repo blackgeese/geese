@@ -16,22 +16,15 @@ Stel(/^alle pionnen staan op het startvakje$/) do
   # no-op
 end
 
-Dan(/^is Piet aan de beurt om te dobbelen omdat hij de jongste speler is$/) do
-  expect(@board.current_player[:name]).to eql("Piet")
+Dan(/^is (.*) aan de beurt om te dobbelen omdat hij de jongste speler is$/) do |name|
+  expect(@board.current_player[:name]).to eql(name)
 end
 
-Als(/^de beurt van Piet is geweest$/) do
-  pending # express the regexp above with the code you wish you had
+Als(/^de beurt van (.*) is geweest$/) do |name|
+  expect(@board.current_player[:name]).to eql(name)
+  @board.turn_for_current_player
 end
 
-Dan(/^is Klaas aan de beurt om te dobbelen$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
-Als(/^de beurt van Klaas is geweest$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
-Dan(/^is Jan aan de beurt om te dobbelen$/) do
-  pending # express the regexp above with the code you wish you had
+Dan(/^is (.*) aan de beurt om te dobbelen$/) do |name|
+  expect(@board.current_player[:name]).to eql(name)
 end

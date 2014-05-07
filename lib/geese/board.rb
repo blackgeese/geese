@@ -34,7 +34,13 @@ module Geese
 
     # Returns the player attributes for the player for the current turn
     def current_player
-      youngest_player
+      @current_player_index ||= players.index(youngest_player)
+      players[@current_player_index]
+    end
+
+    # Process the turn for the currently active player.
+    def turn_for_current_player
+      @current_player_index = (@current_player_index + 1) % players.size
     end
 
     private
