@@ -1,4 +1,5 @@
 module Geese
+
   # Represents a Game of Geese board, you can create a new board with a
   # number of squares. A classical Game of Geese board has 63 squares,
   # exluding the 'start' square.
@@ -28,8 +29,12 @@ module Geese
     #
     #     board.add_player(name: 'Samual L. Jackson', age: 52, color: 'purple')
     #
-    def add_player(attributes)
-      @players << attributes
+    def add_player(player_or_attributes)
+      if player_or_attributes.is_a?(Geese::Player)
+        @players << player_or_attributes
+      else
+        @players << Player.new(player_or_attributes)
+      end
     end
 
     # Returns the player attributes for the player for the current turn
@@ -46,7 +51,7 @@ module Geese
     private
 
     def youngest_player
-      players.sort { |a,b| a[:age] <=> b[:age] }.first
+      players.sort.first
     end
 
     def initialize(number_of_squares)

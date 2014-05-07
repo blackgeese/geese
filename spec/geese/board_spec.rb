@@ -16,14 +16,14 @@ describe Geese::Board do
     let(:board) { Geese::Board.create_with_number_of_squares(63) }
 
     it 'adds a player to the board' do
-      board.add_player(player_attributes)
+      board.add_player(player)
       expect(board).to have(1).players
     end
   end
 
   describe '#turn_for_current_player' do
-    let(:john) { player_attributes(name: "John", age: 11) }
-    let(:jane) { player_attributes(name: "Jane", age: 9) }
+    let(:john) { player(name: "John", age: 11, color: 'grey') }
+    let(:jane) { player(name: "Jane", age: 9, color: 'green') }
 
     let(:board) { Geese::Board.create_with_number_of_squares(63) }
 
@@ -40,8 +40,8 @@ describe Geese::Board do
   end
 
   describe '#current_player' do
-    let(:john) { player_attributes(name: "John", age: 11) }
-    let(:jane) { player_attributes(name: "Jane", age: 9) }
+    let(:john) { player(name: "John", age: 11, color: 'grey') }
+    let(:jane) { player(name: "Jane", age: 9, color: 'green') }
 
     let(:board) { Geese::Board.create_with_number_of_squares(63) }
 
@@ -51,7 +51,7 @@ describe Geese::Board do
     end
 
     it 'chooses youngest player to start' do
-      expect(board.current_player).to eql(jane)
+      expect(board.current_player).to eq(jane)
     end
   end
 end
