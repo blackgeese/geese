@@ -18,6 +18,14 @@ module Geese
       self.new(number_of_squares)
     end
 
+    def geesified_square_at?(square)
+      @geesified_squares.include?(square)
+    end
+
+    def geesify_square_at(square)
+      @geesified_squares << square unless geesified_square_at?(square)
+    end
+
     # Adds a player to the board, the following attributes need to be
     # present:
     #
@@ -43,6 +51,27 @@ module Geese
       players[@current_player_index]
     end
 
+    # Returns the number of players
+    def number_of_players
+      players.size
+    end
+
+    # Returns the winning player, if any
+    def winning_player
+      players.select { |p| p.location == number_of_squares }.first
+    end
+
+    def player_with_color(color)
+      players.select { |p| p.color == color }.first
+    end
+
+    # Process a die-roll for the current user
+    def roll_for_current_player(score)
+      final_score = final_score_for_current_player_roll(score)
+      move_current_player(final_score)
+      turn_for_current_player
+    end
+
     # Process the turn for the currently active player.
     def turn_for_current_player
       @current_player_index = (@current_player_index + 1) % players.size
@@ -54,8 +83,19 @@ module Geese
       players.sort.first
     end
 
+    def final_score_for_current_player_roll(score)
+      location = current_player.location
+      multiplier = geesified_square_at?(location + score) ? 2 : 1
+      score * multiplier
+    end
+
+    def move_current_player(score)
+      current_player.location = [current_player.location + score, number_of_squares].min
+    end
+
     def initialize(number_of_squares)
       @number_of_squares = number_of_squares
+      @geesified_squares = []
       @players = []
     end
   end
