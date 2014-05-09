@@ -47,6 +47,7 @@ module Geese
 
     # Returns the player attributes for the player for the current turn
     def current_player
+      return nil if players.empty?
       @current_player_index ||= players.index(youngest_player)
       players[@current_player_index]
     end

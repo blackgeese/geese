@@ -1,3 +1,7 @@
 #!/usr/bin/env ruby
 
-puts "Not implemented yet."
+$:.unshift(File.dirname(__FILE__) + '/../lib') unless $:.include?(File.dirname(__FILE__) + '/../lib')
+
+require 'geese/shell'
+
+Geese::Shell.start!

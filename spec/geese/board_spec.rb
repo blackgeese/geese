@@ -136,6 +136,11 @@ describe Geese::Board do
       board.add_player(jane)
     end
 
+    it 'returns nil when there are no players' do
+      board = Geese::Board.create_with_number_of_squares(63)
+      expect(board.current_player).to be_nil
+    end
+
     it 'chooses youngest player to start' do
       expect(board.current_player).to eq(jane)
     end
