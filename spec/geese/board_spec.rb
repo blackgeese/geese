@@ -12,6 +12,22 @@ describe Geese::Board do
     end
   end
 
+  describe '#double_roll_at, #double_roll_at?' do
+    let(:board) { Geese::Board.create_with_number_of_squares(63) }
+
+    it 'has no double-roll squares by default' do
+      (1..63).each do |n|
+        expect(board.double_roll_at?(n)).to be_false
+      end
+    end
+
+    it "marks squares as double-roll" do
+      expect {
+        board.double_roll_at(42)
+      }.to change { board.double_roll_at?(42) }.from(false).to(true)
+    end
+  end
+
   describe '#geesify_square, #geesified_square_at?' do
     let(:board) { Geese::Board.create_with_number_of_squares(63) }
 

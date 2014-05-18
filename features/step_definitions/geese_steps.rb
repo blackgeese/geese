@@ -17,6 +17,23 @@ Stel(/^alle pionnen staan op het startvakje$/) do
   # no-op
 end
 
+Stel(/^Piet gooit altijd (\d+) met de dobbelsteen$/) do |score|
+  score = score.to_i
+
+  @fixed_scores ||= Hash.new(nil)
+  @fixed_scores['piet'] = score.to_i
+end
+
+Stel(/^het (\d+)de vakje is een ganzenvakje$/) do |square|
+  square = square.to_i
+  @board.geesify_square_at(square)
+end
+
+Stel(/^op het (\d+)de vakje mag je nogmaals dobbelen$/) do |square|
+  square = square.to_i
+  @board.double_roll_at(square)
+end
+
 Dan(/^is (.*) aan de beurt om te dobbelen omdat hij de jongste speler is$/) do |name|
   expect(@board.current_player[:name]).to eql(name)
 end
@@ -48,13 +65,6 @@ Dan(/^is de bord opstelling als volgt:$/) do |table|
   end
 end
 
-Stel(/^Piet gooit altijd (\d+) met de dobbelsteen$/) do |score|
-  score = score.to_i
-
-  @fixed_scores ||= Hash.new(nil)
-  @fixed_scores['piet'] = score.to_i
-end
-
 Als(/^er (\d+) speelrondes zijn gespeeld$/) do |turns|
   turns = @board.number_of_players * turns.to_i
 
@@ -69,7 +79,3 @@ Dan(/^heeft (.*) het spel gewonnen$/) do |name|
   expect(@board.winning_player.name).to eq(name)
 end
 
-Stel(/^het (\d+)de vakje is een ganzenvakje$/) do |square|
-  square = square.to_i
-  @board.geesify_square_at(square)
-end

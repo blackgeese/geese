@@ -18,6 +18,14 @@ module Geese
       self.new(number_of_squares)
     end
 
+    def double_roll_at?(square)
+      @double_roll_squares.include?(square)
+    end
+
+    def double_roll_at(square)
+      @double_roll_squares << square unless double_roll_at?(square)
+    end
+
     def geesified_square_at?(square)
       @geesified_squares.include?(square)
     end
@@ -96,6 +104,7 @@ module Geese
     def initialize(number_of_squares)
       @number_of_squares = number_of_squares
       @geesified_squares = []
+      @double_roll_squares = []
       @players = []
     end
   end
