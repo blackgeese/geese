@@ -43,7 +43,7 @@ Als(/^de beurt van (.*) is geweest$/) do |name|
   @board.turn_for_current_player
 end
 
-Dan(/^is (.*) aan de beurt om te dobbelen$/) do |name|
+Dan(/^is (.*?) (?:weer|) aan de beurt om te dobbelen$/) do |name|
   expect(@board.current_player[:name]).to eql(name)
 end
 

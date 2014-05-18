@@ -76,7 +76,9 @@ module Geese
     # Process a die-roll for the current user
     def roll_for_current_player(score)
       final_score = final_score_for_current_player_roll(score)
-      move_current_player(final_score)
+      new_location = move_current_player(final_score)
+
+      return if double_roll_at?(new_location)
       turn_for_current_player
     end
 

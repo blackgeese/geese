@@ -94,8 +94,11 @@ describe Geese::Board do
 
   describe '#roll_for_curent_player' do
     let(:john) { player(name: "John", age: 11, color: 'grey') }
+    let(:mike) { player(name: "Mike", age: 13, color: 'blue') }
+
     let(:board) { Geese::Board.create_with_number_of_squares(63) }
     before { board.add_player(john) }
+    before { board.add_player(mike) }
 
     it 'moves the player forward' do
       expect {
@@ -120,6 +123,14 @@ describe Geese::Board do
       expect {
         board.roll_for_current_player(2)
       }.to change(board.current_player, :location).by(4)
+    end
+
+    it 'keeps the turn when landing on a double-roll square' do
+      board.double_roll_at(2)
+
+      expect {
+        board.roll_for_current_player(2)
+      }.to_not change(board, :current_player).from(john)
     end
   end
 
